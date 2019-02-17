@@ -7,7 +7,9 @@ import java.sql.*;
 import static java.util.Date.parse;
 
 public class Main {
-
+    static Connection conn = null;
+    static String lastProcessedPath = "";
+    static int counterAll = 0;
     private static String Newsgroups = "";
     private static String From = "";
     private static String To = "";
@@ -27,14 +29,9 @@ public class Main {
     private static int Lines = 0;
     private static String header = "";
     private static String body = "";
-    static Connection conn = null;
-    static String lastProcessedPath = "";
-
 
     public static void main(String[] args) {
         System.out.println("Starting!");
-
-        // get command line arguments
         String db_Server = args[0];
         String database_name = args[1];
 
@@ -42,9 +39,7 @@ public class Main {
         final String USERNAME = args[2];
         final String PASSWORD = args[3];
         final String CONN_STRING = "jdbc:mysql://" + db_Server + ":3306/" + database_name;
-
-        String dir = args[4];
-
+        final String dir = args[4];
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -82,8 +77,6 @@ public class Main {
 
 
     }
-
-    static int counterAll = 0;
 
     private static void recusiveList(String absolutePath) throws IOException {
         File f = new File(absolutePath);
@@ -235,12 +228,16 @@ public class Main {
                                 if (Newsgroups.length() > 0) {
 
 
-                                    PreparedStatement statementor = null;
-                                    statementor = conn.prepareStatement("SELECT count(*) FROM archive WHERE `Message-ID`= '" + MessageID + "'");
-                                    ResultSet resultSet = statementor.executeQuery();
-                                    resultSet.next();
                                     int alreadyInDB = 0;
-                                    alreadyInDB = resultSet.getInt(1);
+                                    try {
+                                        PreparedStatement statementor = null;
+                                        statementor = conn.prepareStatement("SELECT count(*) FROM archive WHERE `Message-ID`= '" + MessageID + "'");
+                                        ResultSet resultSet = statementor.executeQuery();
+                                        resultSet.next();
+                                        alreadyInDB = resultSet.getInt(1);
+                                    } catch (SQLException e) {
+                                        alreadyInDB = 0;
+                                    }
 
                                     if (alreadyInDB != 1) {
                                         alreadyInDB = 0;
