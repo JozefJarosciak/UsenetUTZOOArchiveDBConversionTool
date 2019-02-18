@@ -389,7 +389,5 @@ CREATE TABLE `archive` (
 )
 COLLATE='utf8_general_ci'
 ENGINE=MyISAM
-AUTO_INCREMENT=819574
 ;
-
  */
