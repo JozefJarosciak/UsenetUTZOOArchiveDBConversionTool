@@ -10,7 +10,12 @@ This is a text file to MySQL database converter for the collection of .TGZ files
 [https://www.joe0.com/2019/02/17/converting-utzoo-usenet-archive-from-tgz-to-mysql-database-java-code/](https://www.joe0.com/2019/02/17/converting-utzoo-usenet-archive-from-tgz-to-mysql-database-java-code/)
 
 # Screenshots
+The original 141 x magnetic tapes:
 ![Screenshot1](https://www.joe0.com/wp-content/uploads/2019/02/2019-02-17_9-14-15-768x613.png)
+
+Four step conversion process, from flat files to MySQL:
+![Screenshot1](https://www.joe0.com/wp-content/uploads/2019/02/img_5c6984180d0cc.png)
+
 
 ## Contributing
 Anyone is welcome to contribute to this project.
